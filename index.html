@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wisdom / Classified</title>
+<!-- relative URLs: works under /token-classifieds/ (project page) and / (custom domain) -->
+<link rel="stylesheet" href="./classified.css">
+<script src="./config.js"></script>
+<script src="./classifieds.js"></script>
+</head>
+<body>
+<main id="app"></main>
+<script>
+  var c = window.CLASSIFIEDS_CONFIG || {};
+  var q = new URLSearchParams(location.search);
+  var api = (q.get("api") && location.hostname === "localhost") ? q.get("api") : c.apiBase;
+  var lang = q.get("lang") || (navigator.language || "en").slice(0, 2);
+  Elm.Main.init({ node: document.getElementById("app"), flags: {
+    apiBase: api.replace(/\/$/, ""), assetBase: ((api !== c.apiBase ? api : c.assetBase) || api).replace(/\/$/, ""),
+    siteOrigin: (c.siteOrigin || "").replace(/\/$/, ""), locale: lang } });
+</script>
+</body>
+</html>
